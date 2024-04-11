@@ -9,8 +9,28 @@ local plugins = {
                 "ruff",
                 "black",
                 "rust-analyzer",
+                "codelldb",
+                "clangd",
+                "clang-format",
+                "texlab",
+                "cmake-language-server",
+                "cmakelang",
+                "omnisharp",
+                "lua-language-server",
+                "stylua",
             },
         },
+    },
+    {
+        "jay-babu/mason-nvim-dap.nvim",
+            dependencies = {
+                "williamboman/mason.nvim",
+                "mfussenegger/nvim-dap",
+            },
+            opts = {
+                handlers = {},
+                ensure_installed = {}
+            },
     },
     {
         "neovim/nvim-lspconfig",
@@ -21,6 +41,7 @@ local plugins = {
     },
     {
         "jose-elias-alvarez/null-ls.nvim",
+        event = "VeryLazy",
         ft = {"python"},
         opts = function ()
             return require("custom.configs.null-ls")
@@ -54,6 +75,7 @@ local plugins = {
     },
     {
         "rcarriga/nvim-dap-ui",
+        event = "VeryLazy",
         dependencies = "mfussenegger/nvim-dap",
         config = function()
             require("custom.configs.nvim-dap-ui")
@@ -62,6 +84,28 @@ local plugins = {
     {
         "christoomey/vim-tmux-navigator",
         lazy = false,
+    },
+    {
+        "kdheepak/lazygit.nvim",
+        event = "VeryLazy",
+        -- optional for floating window border
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+    },
+    {
+        "rust-lang/rust.vim",
+        ft = "rust",
+        init = function ()
+            vim.g.rustfmt_autosave = 1
+        end
+    },
+    {
+        "folke/trouble.nvim",
+        dependencies = {"nvim-tree/nvim-web-devicons"},
+        opts =function()
+            require("custom.configs.trouble")
+        end
     }
 }
 return plugins
